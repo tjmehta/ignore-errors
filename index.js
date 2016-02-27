@@ -1,4 +1,4 @@
-var exists = require('101/exists')
+var exists = require('exists')
 var hasKeypaths = require('101/has-keypaths')
 var instanceOf = require('101/instance-of')
 var isRegExp = require('101/is-regexp')
@@ -15,7 +15,7 @@ module.exports = createIgnore
 function createIgnore (codeKey) {
   codeKey = exists(codeKey) ? codeKey : 'code'
 
-  return function ignore (/* tests */) {
+  return function ignore (/*tests*/) {
     var args = Array.prototype.slice.call(arguments)
     var tests = args.reduce(function (tests, test) {
       return tests.concat(test)

@@ -1,9 +1,9 @@
 var util = require('util')
 
 var Code = require('code')
+var hasProps = require('101/has-properties')
 var Lab = require('lab')
 var lab = exports.lab = Lab.script()
-global.Promise = global.Promise || require('promise-polyfill')
 
 var createIgnore = require('../index.js')
 var CustomError = function CustomError (msg) {
@@ -21,6 +21,8 @@ util.inherits(StrictBabelClass, Error)
 
 var describe = lab.describe
 var it = lab.it
+var before = lab.before
+var after = lab.after
 var expect = Code.expect
 
 describe('ignore-errors', function () {
@@ -122,7 +124,7 @@ describe('ignore-errors', function () {
       .catch(done)
   })
 
-  describe('errors', function () {
+  describe('errors', function() {
     it('should not ignore errors if regex doesn\'t match', function (done) {
       var ignore = createIgnore()
       var err = new Error('bad')
@@ -141,7 +143,7 @@ describe('ignore-errors', function () {
 
     it('should not ignore undefined error if regex doesn\'t match', function (done) {
       var ignore = createIgnore()
-      var err // = undefined
+      var err = undefined
       Promise
         .reject(err)
         .catch(ignore(/something bad/))

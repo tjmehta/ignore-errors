@@ -109,7 +109,7 @@ Promise
   })
 ```
 
-### Ignore many types of errors.
+### Ignore multiple types of errors.
 ```
 // Ignore multiple errors w/ variety of tests using an Array
 var err = new Error('foo')

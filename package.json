@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "lab --verbose --assert code --threshold 100"
+    "test": "standard && lab --verbose --assert code --threshold 100",
+    "lint": "standard"
   },
   "repository": {
     "type": "git",
@@ -38,5 +39,10 @@
   "dependencies": {
     "is-capitalized": "^1.0.0",
     "is-class": "0.0.4"
+  },
+  "devDependencies": {
+    "code": "^2.1.0",
+    "lab": "github:tjmehta/lab#lab5-coverage-fix",
+    "standard": "^6.0.7"
   }
 }

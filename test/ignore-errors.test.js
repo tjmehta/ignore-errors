@@ -3,6 +3,7 @@ var util = require('util')
 var Code = require('code')
 var Lab = require('lab')
 var lab = exports.lab = Lab.script()
+global.Promise = global.Promise || require('promise-polyfill')
 
 var createIgnore = require('../index.js')
 var CustomError = function CustomError (msg) {

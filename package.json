@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "code": "^2.1.0",
-    "lab": "github:tjmehta/lab#lab5-coverage-fix",
+    "lab": "tjmehta/lab#lab5-coverage-fix",
     "standard": "^6.0.7"
   }
 }

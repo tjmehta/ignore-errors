@@ -1,6 +1,7 @@
 # ignore-errors [![Build Status](https://travis-ci.org/tjmehta/ignore-errors.svg?branch=master)](https://travis-ci.org/tjmehta/ignore-errors)
 
-Easily ignore specific errors. Works well w/ Promises.
+Easily ignore specific promise errors
+
 
 # Installation
 

@@ -1,0 +1,50 @@
+{
+  "name": "ignore-errors",
+  "version": "0.0.0",
+  "description": "Easily ignore specific promise errors",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "standard && lab --verbose --assert code --threshold 100",
+    "lint": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tjmehta/ignore-errors.git"
+  },
+  "keywords": [
+    "ignore",
+    "specific",
+    "whitelist",
+    "error",
+    "err",
+    "errors",
+    "easily",
+    "regex",
+    "string",
+    "properties",
+    "test",
+    "function",
+    "promise",
+    "yield"
+  ],
+  "author": "Tejesh Mehta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tjmehta/ignore-errors/issues"
+  },
+  "homepage": "https://github.com/tjmehta/ignore-errors",
+  "dependencies": {
+    "101": "^1.4.0",
+    "is-capitalized": "^1.0.0",
+    "is-class": "0.0.4"
+  },
+  "devDependencies": {
+    "code": "^1.5.0",
+    "lab": "tjmehta/lab#lab5-coverage-fix",
+    "promise-polyfill": "^3.1.0",
+    "standard": "^6.0.7"
+  }
+}

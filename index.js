@@ -15,7 +15,7 @@ module.exports = createIgnore
 function createIgnore (codeKey) {
   codeKey = exists(codeKey) ? codeKey : 'code'
 
-  return function ignore (/*tests*/) {
+  return function ignore (/* tests */) {
     var args = Array.prototype.slice.call(arguments)
     var tests = args.reduce(function (tests, test) {
       return tests.concat(test)

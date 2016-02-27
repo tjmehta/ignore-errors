@@ -2,7 +2,6 @@
 
 Easily ignore specific promise errors
 
-
 # Installation
 
 ```bash
@@ -116,7 +115,7 @@ Promise.reject(err)
   })
 ```
 
-### Ignore many types of errors.
+### Ignore multiple types of errors.
 
 ```
 // Ignore multiple errors w/ variety of tests using an Array

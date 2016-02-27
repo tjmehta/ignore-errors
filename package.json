@@ -1,0 +1,42 @@
+{
+  "name": "ignore-errors",
+  "version": "0.0.0",
+  "description": "Easily ignore specific errors. Works well w/ Promises.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "lab --verbose --assert code --threshold 100"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tjmehta/ignore-errors.git"
+  },
+  "keywords": [
+    "ignore",
+    "specific",
+    "whitelist",
+    "error",
+    "err",
+    "errors",
+    "easily",
+    "regex",
+    "string",
+    "properties",
+    "test",
+    "function",
+    "promise",
+    "yield"
+  ],
+  "author": "Tejesh Mehta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tjmehta/ignore-errors/issues"
+  },
+  "homepage": "https://github.com/tjmehta/ignore-errors",
+  "dependencies": {
+    "is-capitalized": "^1.0.0",
+    "is-class": "0.0.4"
+  }
+}

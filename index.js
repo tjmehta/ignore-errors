@@ -1,4 +1,4 @@
-var exists = require('exists')
+var exists = require('101/exists')
 var hasKeypaths = require('101/has-keypaths')
 var instanceOf = require('101/instance-of')
 var isRegExp = require('101/is-regexp')

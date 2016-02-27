@@ -37,11 +37,12 @@
   },
   "homepage": "https://github.com/tjmehta/ignore-errors",
   "dependencies": {
+    "101": "^1.4.0",
     "is-capitalized": "^1.0.0",
     "is-class": "0.0.4"
   },
   "devDependencies": {
-    "code": "^2.1.0",
+    "code": "^1.5.0",
     "lab": "tjmehta/lab#lab5-coverage-fix",
     "standard": "^6.0.7"
   }

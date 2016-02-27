@@ -1,6 +1,6 @@
 {
   "name": "ignore-errors",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Easily ignore specific promise errors",
   "main": "index.js",
   "directories": {

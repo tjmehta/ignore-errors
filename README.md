@@ -8,19 +8,26 @@ npm i --save ignore-errors
 ```
 
 # Usage
+### Ignore errors by regex.
+Will ignore errors w/ `message`s that match regex
 ```js
 var ignore = require('ignore-errors')()
-var err
 
 // Ignore errors by regex
 // This will ignore errors with `message`'s that pass
-err = new Error('something bad')
+var err = new Error('something bad')
 Promise
   .reject(err)
   .catch(ignore(/something bad/))
   .then(function () {
     // gets here
   })
+```
+
+### Ignore errors by strings or numbers.
+Will ignore errors w/ `code`s (or custom key) that match regex
+```js
+var ignore = require('ignore-errors')()
 
 // Ignore errors w/ "code"
 // By default, literals will check to match `err.code`
@@ -50,6 +57,12 @@ Promise
   .then(function () {
     // gets here
   })
+```
+
+### Ignore errors by objects.
+Will ignore errors that have those properties (supports keypaths)
+```js
+var ignore = require('ignore-errors')()
 
 // Ignore errors w/ custom properties
 err = new Error('boom')
@@ -60,6 +73,12 @@ Promise
   .then(function () {
     // gets here
   })
+```
+
+### Ignore errors by classes.
+Will ignore errors that are instances of those classes
+```js
+var ignore = require('ignore-errors')()
 
 // Ignore errors by class (checks for es6 classes or capitalized function names)
 err = new CustomError('boom')
@@ -69,6 +88,12 @@ Promise
   .then(function () {
     // gets here
   })
+```
+
+### Ignore errors by functions.
+Will ignore errors that pass any of the functions (returns true)
+```js
+var ignore = require('ignore-errors')()
 
 // Ignore errors by a custom test
 var customTest = function (err) {

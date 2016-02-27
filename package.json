@@ -1,7 +1,7 @@
 {
   "name": "ignore-errors",
   "version": "0.0.0",
-  "description": "Easily ignore specific errors. Works well w/ Promises.",
+  "description": "Easily ignore specific promise errors",
   "main": "index.js",
   "directories": {
     "test": "test"

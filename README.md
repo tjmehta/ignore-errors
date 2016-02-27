@@ -30,7 +30,7 @@ var ignore = require('ignore-errors')()
 
 // Ignore errors w/ "code"
 // By default, literals will check to match `err.code`
-err = new Error('boom')
+var err = new Error('boom')
 err.code = 'INVALID_FOO'
 Promise
   .reject(err)
@@ -38,7 +38,7 @@ Promise
   .then(function () {
     // gets here
   })
-err = new Error('boom')
+var err = new Error('boom')
 err.code = 10
 Promise
   .reject(err)
@@ -48,7 +48,7 @@ Promise
   })
 // To specify custom code key
 var ignoreStatusCodes = require('ignore-errors')('statusCode') // supports keypaths
-err = new Error('boom')
+var err = new Error('boom')
 err.statusCode = 404
 Promise
   .reject(err)
@@ -64,7 +64,7 @@ Will ignore errors that have those properties (supports keypaths)
 var ignore = require('ignore-errors')()
 
 // Ignore errors w/ custom properties
-err = new Error('boom')
+var err = new Error('boom')
 err.statusCode = 404
 Promise
   .reject(err)
@@ -80,7 +80,7 @@ Will ignore errors that are instances of those classes
 var ignore = require('ignore-errors')()
 
 // Ignore errors by class (checks for es6 classes or capitalized function names)
-err = new CustomError('boom')
+var err = new CustomError('boom')
 Promise
   .reject(err)
   .catch(ignore(CustomError))
@@ -98,7 +98,7 @@ var ignore = require('ignore-errors')()
 var customTest = function (err) {
   return (err.a + err.b) === 2
 }
-err = new Error('boom')
+var err = new Error('boom')
 err.a = 1
 err.b = 1
 Promise
@@ -107,17 +107,36 @@ Promise
   .then(function () {
     // gets here
   })
+```
 
+### Ignore many types of errors.
+```
 // Ignore multiple errors w/ variety of tests using an Array
-err = new Error('boom')
-err.a = 1
-err.b = 1
+var err = new Error('foo')
+var ignoreWhitelist = ignore([/foo/, 100, 'INVALID_FOO', CustomError, customTest])
 Promise
   .reject(err)
-  .catch(ignore([/foo msg/, 100, 'INVALID_FOO', CustomError, customTest]))
+  .catch(ignoreWhitelist)
   .then(function () {
     // gets here
   })
+var err2 = new Error('bar')
+err.code = 100
+Promise
+  .reject(err)
+  .catch(ignoreWhitelist)
+  .then(function () {
+    // gets here
+  })
+var err3 = new CustomError('qux')
+err.code = 100
+Promise
+  .reject(err)
+  .catch(ignoreWhitelist)
+  .then(function () {
+    // gets here
+  })
+// ...
 ```
 
 # License

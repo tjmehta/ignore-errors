@@ -10,10 +10,13 @@ npm i --save node-module-template
 
 # Usage
 
-#### Example
+#### Supports both ESM and CommonJS
 
 ```js
-import module from 'node-module-template'
+// esm
+import nmt from 'node-module-template`
+// commonjs
+const nmt = require('node-module-template')
 ```
 
 # License

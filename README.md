@@ -1,143 +1,151 @@
 # ignore-errors [![Build Status](https://travis-ci.org/tjmehta/ignore-errors.svg?branch=master)](https://travis-ci.org/tjmehta/ignore-errors)
+
 Easily ignore specific promise errors
 
 # Installation
+
 ```bash
 npm i --save ignore-errors
 ```
 
 # Usage
-### Ignore errors by regex.
-Will ignore errors w/ `message`s that match regex
-```js
-var ignore = require('ignore-errors')()
 
-// Ignore errors by regex
-// This will ignore errors with `message`'s that pass
-var err = new Error('something bad')
-Promise
-  .reject(err)
-  .catch(ignore(/something bad/))
-  .then(function () {
-    // gets here
-  })
+### Supports both ESM and CommonJS
+
+```js
+// esm
+import ignore from 'ignore-errors'
+// commonjs
+const ignore = require('ignore-errors').default
 ```
 
-### Ignore errors by strings or numbers.
-Will ignore errors w/ `code`s (or custom key) that match regex
-```js
-var ignore = require('ignore-errors')()
+### Ignore errors that have a specific property value
 
-// Ignore errors w/ "code"
-// By default, literals will check to match `err.code`
-var err = new Error('boom')
-err.code = 'INVALID_FOO'
-Promise
-  .reject(err)
-  .catch(ignore('INVALID_FOO'))
-  .then(function () {
-    // gets here
-  })
-var err = new Error('boom')
-err.code = 10
-Promise
-  .reject(err)
-  .catch(ignore(10))
-  .then(function () {
-    // gets here
-  })
-// To specify custom code key
-var ignoreStatusCodes = require('ignore-errors')('statusCode') // supports keypaths
-var err = new Error('boom')
-err.statusCode = 404
-Promise
-  .reject(err)
-  .catch(ignoreStatusCodes(404))
-  .then(function () {
-    // gets here
-  })
+Will ignore errors w/ property `foo` that equals the given literal value (string, number, anything except a regexp)
+
+```js
+import ignore from 'ignore-errors'
+
+const err = new Error('boom')
+err.foo = 'foobar'
+await Promise.reject(err).catch(ignore('foo', 'foobar'))
+// gets here, no error thrown
 ```
 
-### Ignore errors by objects.
-Will ignore errors that have those properties (supports keypaths)
-```js
-var ignore = require('ignore-errors')()
+### Ignore errors have specified properties with values
 
-// Ignore errors w/ custom properties
+Will ignore errors w/ 'foo' and 'bar' given expected values
+
+```js
+import ignore from 'ignore-errors'
+
 var err = new Error('boom')
-err.statusCode = 404
-Promise
-  .reject(err)
-  .catch(ignore({ name: 'hello' }))
-  .then(function () {
-    // gets here
-  })
+err.foo = 1
+err.bar = 2
+await Promise.reject(err).catch(ignore({ foo: 1, bar: 2 }))
+// gets here, no error thrown
 ```
 
-### Ignore errors by classes.
-Will ignore errors that are instances of those classes
-```js
-var ignore = require('ignore-errors')()
+### Ignore errors have with property values that match a regexp
 
-// Ignore errors by class (checks for es6 classes or capitalized function names)
-var err = new CustomError('boom')
-Promise
-  .reject(err)
-  .catch(ignore(CustomError))
-  .then(function () {
-    // gets here
-  })
+Will ignore errors w/ property `foo` that have a value that matches the regexp
+
+```js
+import ignore from 'ignore-errors'
+
+const err = new Error('boom')
+err.foo = 'foobar'
+await Promise.reject(err).catch(ignore('foo', /foobar/))
+// gets here, no error thrown
+
+// regexps work when passed when matching multiple properties too
+const err = new Error('boom')
+err.foo = 1
+err.bar = 2
+await Promise.reject(err).catch(ignore({ foo: /1/, bar: /2/ }))
 ```
 
-### Ignore errors by functions.
-Will ignore errors that pass any of the functions (returns true)
-```js
-var ignore = require('ignore-errors')()
+### Convenience methods for common error properties
 
-// Ignore errors by a custom test
-var customTest = function (err) {
-  return (err.a + err.b) === 2
+Easily ignore errors with `messages`, `names`, `statuses`, `reasons` or `codes`
+
+```js
+import {
+  ignoreMessage,
+  ignoreName,
+  ignoreStatus,
+  ignoreReason,
+  ignoreCode,
+} from 'ignore-errors'
+
+let err
+
+// ignore errors with specific messages
+err = new Error('boom')
+await Promise.reject(err).catch(ignoreMessage('boom'))
+await Promise.reject(err).catch(ignoreMessage(/boom/))
+// gets here, no error thrown
+
+// ignore errors with specific names
+class SpecialError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = this.constructor.name
+  }
 }
-var err = new Error('boom')
-err.a = 1
-err.b = 1
-Promise
-  .reject(err)
-  .catch(ignore(customTest))
-  .then(function () {
-    // gets here
-  })
+err = new SpecialError('boom')
+await Promise.reject(err).catch(ignoreName('SpecialError'))
+await Promise.reject(err).catch(ignoreName(/SpecialError/))
+// gets here, no error thrown
+
+// ignore errors with specific statuses
+err = new Error('boom')
+err.status = 500
+await Promise.reject(err).catch(ignoreStatus(500))
+await Promise.reject(err).catch(ignoreStatus(/500/))
+// gets here, no error thrown
+
+// ignore errors with specific reasons
+err = new Error('boom')
+err.reason = 'BOOM_ERROR'
+await Promise.reject(err).catch(ignoreReason('BOOM_ERROR'))
+await Promise.reject(err).catch(ignoreReason(/BOOM_ERROR/))
+// gets here, no error thrown
+
+// ignore errors with specific codes
+err = new Error('boom')
+err.code = 10
+await Promise.reject(err).catch(ignoreCode(10))
+await Promise.reject(err).catch(ignoreCode(/10/))
+// gets here, no error thrown
 ```
 
-### Ignore multiple types of errors.
-```
-// Ignore multiple errors w/ variety of tests using an Array
-var err = new Error('foo')
-var ignoreWhitelist = ignore([/foo/, 100, 'INVALID_FOO', CustomError, customTest])
-Promise
-  .reject(err)
-  .catch(ignoreWhitelist)
-  .then(function () {
-    // gets here
-  })
-var err2 = new Error('bar')
-err.code = 100
-Promise
-  .reject(err)
-  .catch(ignoreWhitelist)
-  .then(function () {
-    // gets here
-  })
-var err3 = new CustomError('qux')
-err.code = 100
-Promise
-  .reject(err)
-  .catch(ignoreWhitelist)
-  .then(function () {
-    // gets here
-  })
-// ...
+### Easily ignore various types of errors with `ignoreAny`
+
+```js
+import {
+  ignoreAny,
+  ignoreMessage,
+  ignoreName,
+  ignoreStatus,
+  ignoreReason,
+  ignoreCode,
+} from 'ignore-errors'
+
+let err
+
+// ignore errors with specific messages
+err = new Error('boom')
+await Promise.reject(err).catch(
+  ignoreAny(
+    ignoreMessage('boom'), 
+    ignoreMessage('bam'), 
+    ignoreMessage('pow')
+  )
+)
+// gets here, no error thrown
 ```
 
 # License
+
 MIT

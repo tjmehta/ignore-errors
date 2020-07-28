@@ -1,7 +1,7 @@
 {
-  "name": "node-module-template",
-  "version": "0.0.0",
-  "description": "Description",
+  "name": "ignore-errors",
+  "version": "1.0.0",
+  "description": "Easily ignore specific promise errors",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "scripts": {
@@ -11,24 +11,46 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tjmehta/node-module-template.git"
+    "url": "git+https://github.com/tjmehta/ignore-errors.git"
   },
   "keywords": [
+    "ignore",
+    "specific",
+    "whitelist",
+    "error",
+    "err",
+    "errors",
+    "easily",
+    "regex",
+    "string",
+    "properties",
+    "test",
+    "function",
+    "promise",
+    "yield"
   ],
   "author": "Tejesh Mehta",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tjmehta/node-module-template/issues"
+    "url": "https://github.com/tjmehta/ignore-errors/issues"
   },
-  "homepage": "https://github.com/tjmehta/node-module-template#readme",
+  "homepage": "https://github.com/tjmehta/ignore-errors#readme",
   "devDependencies": {
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-typescript": "^7.10.1",
     "@types/jest": "^25.2.3",
+    "@types/shallowequal": "^1.1.1",
     "babel-core": "^6.26.3",
     "babel-jest": "^26.0.1",
+    "baseerr": "^1.0.1",
     "jest": "^26.0.1",
     "prettier": "^2.0.5",
     "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "mem": "^6.1.0",
+    "mimic-fn": "^3.1.0",
+    "shallow-contains": "^1.0.1",
+    "shallowequal": "^1.1.0"
   }
 }

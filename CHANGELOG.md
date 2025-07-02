@@ -1,3 +1,7 @@
+# v3.0.1
+
+- patch: ignoreAny should return null instead of void
+
 # v3.0.0
 
 - major: return null instead of void

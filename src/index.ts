@@ -44,6 +44,9 @@ export const ignoreAny = (...ignoreFns: Array<IgnoreFnType>) => {
         return false
       }
     })
-    if (!somePassed) throw err
+
+    if (somePassed) return null
+
+    throw err
   }
 }

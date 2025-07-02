@@ -9,7 +9,7 @@ const shallowContainsComparator = (a: any, b: any) => {
 type LiteralMatchType = any
 type MatchType = Record<any, LiteralMatchType> | Map<any, LiteralMatchType>
 type ArgsType = [MatchType] | [string, LiteralMatchType]
-type IgnoreFnType = (val: any) => void
+type IgnoreFnType = (val: any) => null
 
 export default function ignore(...args: ArgsType): IgnoreFnType {
   return (err: any) => {
@@ -17,7 +17,7 @@ export default function ignore(...args: ArgsType): IgnoreFnType {
       args.length === 2 ? { [args[0]]: args[1] } : args[0]
     if (shallowContains(err, match, shallowContainsComparator)) {
       // ignore
-      return
+      return null
     }
     throw err
   }

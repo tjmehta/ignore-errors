@@ -1,3 +1,7 @@
+# v3.0.0
+
+- major: return null instead of void
+
 # v2.0.0
 
 - major: change method signature

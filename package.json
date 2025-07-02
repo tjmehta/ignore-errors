@@ -1,6 +1,6 @@
 {
   "name": "ignore-errors",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Easily ignore specific promise errors",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
